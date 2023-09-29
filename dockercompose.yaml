@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  nop:
+    build:
+      context: .
+      dockerfile: dockerfile
+    network:
+      - madhu
+    ports:
+      - "35000:5000"
+    depends_on:
+      - nop-db
+  nop-db:
+    image:mysql:8
+    network:
+      - madhu
+    volumes:
+      - nop-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD= annu
+      - MYSQL_USER= nop
+      - MYSQL_PASSWORD= annu
+      - MYSQL_DATABASE= nop
+volumes:
+  nop-db
+network:
+  madhu
